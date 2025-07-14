@@ -1,0 +1,403 @@
+%%
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL holofood_old.tex   Wed Jul  2 16:29:03 2025
+%DIF ADD holofood_new.tex   Mon Jul 14 18:18:54 2025
+%% Copyright 2022 OXFORD UNIVERSITY PRESS
+%%
+%% This file is part of the 'oup-authoring-template Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'oup-authoring-template Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for OXFORD UNIVERSITY PRESS's document class `oup-authoring-template'
+%% with bibliographic references
+%%
+
+
+\documentclass[unnumsec,webpdf,namedate,modern,large]{oup-authoring-template}%
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue,
+    citecolor=black,
+    linkcolor=blue,
+    }
+
+\usepackage{graphicx}
+\setcounter{figure}{0}
+\graphicspath{{figures/}}
+
+% New command to hyperlink figures
+% See https://tex.stackexchange.com/questions/266434/extend-the-hyperref-link-to-figure-and-a-b-c
+\newcommand*{\figref}[2][]{%
+  \hyperref[{fig:#2}]{%
+    Fig~\ref*{fig:#2}%
+    \ifx\\#1\\%
+    \else
+      \,#1%
+    \fi
+  }%
+}
+
+% Reduce vertical spacing between sections
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{0.2\baselineskip}{0.2\baselineskip}
+
+%%% Bibliography %%%
+\usepackage[style=authoryear,backend=biber,maxnames=1,uniquelist=false]{biblatex}
+\addbibresource{references.bib}
+                           
+%% Bibiography style for articles %%%
+\DeclareFieldFormat[article]{title}{#1} % Remove quotes from article titles
+\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}} % Make volume bold
+\DeclareFieldFormat[article]{pages}{#1} % Remove "pp" abbreviation before the page number
+
+% Customize bibliography according to Mini Oxford SCIMED style for Bioinformatics journal
+\DeclareBibliographyDriver{article}{%
+  \printnames{author}%%
+  \newunit
+  \printfield{title}.%
+  \newunit
+  \printfield{journaltitle}%
+  \setunit*{\space}%
+  \printfield{year}%
+  \iffieldundef{volume}
+    {\adddot} % If volume is undefined, end with a dot
+    {%
+      \addsemicolon\printfield{volume} % Add a semicolon, print volume
+      \iffieldundef{pages}
+        {\adddot} % If pages are undefined, end with a dot
+         {\addcolon\printfield{pages}\adddot} % If pages are defined, print colon, pages, and end with a dot
+     }
+ }
+
+%% Bibiography style for manuals %%%
+\DeclareFieldFormat[manual]{volume}{\mkbibbold{#1}} % Make volume bold
+\DeclareFieldFormat[manual]{pages}{#1} % Remove "pp" abbreviation before the page number
+
+% For beautiful tables
+\usepackage{booktabs}
+
+% Remove white space above and below the tables
+\usepackage{float}
+\setlength{\floatsep}{10pt}
+\setlength{\textfloatsep}{10pt}
+\setlength{\intextsep}{10pt}
+
+% Reduce blank space between sections
+\usepackage[skip=1pt]{parskip}
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+\providecommand{\DIFmodbegin}{} %DIF PREAMBLE
+\providecommand{\DIFmodend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+\newcommand{\DIFscaledelfig}{0.5}
+%DIF HIGHLIGHTGRAPHICS PREAMBLE %DIF PREAMBLE
+\RequirePackage{settobox} %DIF PREAMBLE
+\RequirePackage{letltxmacro} %DIF PREAMBLE
+\newsavebox{\DIFdelgraphicsbox} %DIF PREAMBLE
+\newlength{\DIFdelgraphicswidth} %DIF PREAMBLE
+\newlength{\DIFdelgraphicsheight} %DIF PREAMBLE
+% store original definition of \includegraphics %DIF PREAMBLE
+\LetLtxMacro{\DIFOincludegraphics}{\includegraphics} %DIF PREAMBLE
+\newcommand{\DIFaddincludegraphics}[2][]{{\color{blue}\fbox{\DIFOincludegraphics[#1]{#2}}}} %DIF PREAMBLE
+\newcommand{\DIFdelincludegraphics}[2][]{% %DIF PREAMBLE
+\sbox{\DIFdelgraphicsbox}{\DIFOincludegraphics[#1]{#2}}% %DIF PREAMBLE
+\settoboxwidth{\DIFdelgraphicswidth}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\settoboxtotalheight{\DIFdelgraphicsheight}{\DIFdelgraphicsbox} %DIF PREAMBLE
+\scalebox{\DIFscaledelfig}{% %DIF PREAMBLE
+\parbox[b]{\DIFdelgraphicswidth}{\usebox{\DIFdelgraphicsbox}\\[-\baselineskip] \rule{\DIFdelgraphicswidth}{0em}}\llap{\resizebox{\DIFdelgraphicswidth}{\DIFdelgraphicsheight}{% %DIF PREAMBLE
+\setlength{\unitlength}{\DIFdelgraphicswidth}% %DIF PREAMBLE
+\begin{picture}(1,1)% %DIF PREAMBLE
+\thicklines\linethickness{2pt} %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\framebox(1,1){}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,0){\line( 1,1){1}}}% %DIF PREAMBLE
+{\color[rgb]{1,0,0}\put(0,1){\line(1,-1){1}}}% %DIF PREAMBLE
+\end{picture}% %DIF PREAMBLE
+}\hspace*{3pt}}} %DIF PREAMBLE
+} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbegin}{\DIFaddbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddend}{\DIFaddend} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbegin}{\DIFdelbegin} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelend}{\DIFdelend} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbegin}{\DIFOaddbegin \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbegin}{\DIFOdelbegin \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelend}{\DIFOaddend \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddbeginFL}{\DIFaddbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOaddendFL}{\DIFaddendFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelbeginFL}{\DIFdelbeginFL} %DIF PREAMBLE
+\LetLtxMacro{\DIFOdelendFL}{\DIFdelendFL} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddbeginFL}{\DIFOaddbeginFL \let\includegraphics\DIFaddincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFaddendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelbeginFL}{\DIFOdelbeginFL \let\includegraphics\DIFdelincludegraphics} %DIF PREAMBLE
+\DeclareRobustCommand{\DIFdelendFL}{\DIFOaddendFL \let\includegraphics\DIFOincludegraphics} %DIF PREAMBLE
+%DIF COLORLISTINGS PREAMBLE %DIF PREAMBLE
+\RequirePackage{listings} %DIF PREAMBLE
+\RequirePackage{color} %DIF PREAMBLE
+\lstdefinelanguage{DIFcode}{ %DIF PREAMBLE
+%DIF DIFCODE_UNDERLINE %DIF PREAMBLE
+  moredelim=[il][\color{red}\sout]{\%DIF\ <\ }, %DIF PREAMBLE
+  moredelim=[il][\color{blue}\uwave]{\%DIF\ >\ } %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstdefinestyle{DIFverbatimstyle}{ %DIF PREAMBLE
+	language=DIFcode, %DIF PREAMBLE
+	basicstyle=\ttfamily, %DIF PREAMBLE
+	columns=fullflexible, %DIF PREAMBLE
+	keepspaces=true %DIF PREAMBLE
+} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim}{\lstset{style=DIFverbatimstyle}}{} %DIF PREAMBLE
+\lstnewenvironment{DIFverbatim*}{\lstset{style=DIFverbatimstyle,showspaces=true}}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+\begin{document}
+
+\journaltitle{Bioinformatics}
+
+%\title{Orchestrating holo-omics with data containers}
+
+%\title{Facilitating holo-omics with statistical programming}
+
+%\title{Statistical programming framework for holo-omics}
+
+%\title{Statistical workflows for holo-omics data integration}
+
+\title{HoloFoodR: a statistical programming framework for holo-omics data integration workflows}
+
+\firstpage{1}
+
+\author[1,\dag]{Tuomas Borman\ORCID{0000-0002-8563-8884}}
+\author[2,\dag]{Artur Sannikov\ORCID{0000-0001-7765-123X}}
+\author[3]{Robert D. Finn\ORCID{0000-0001-8626-2148}}
+\author[4]{Morten Tønsberg Limborg\ORCID{0000-0002-7718-6531}}
+\author[5]{Alexander B. Rogers\ORCID{0000-0002-4283-6135}}
+\author[6]{Varsha Kale\ORCID{0000-0002-3503-6383}}
+\author[7]{Kati Hanhineva\ORCID{0000-0001-6834-7375}}
+\author[8]{Leo Lahti\ORCID{0000-0001-5537-637X}}
+
+\address[1,8]{\orgdiv{Department of Computing}, \orgname{University of Turku}, \postcode{20014} \state{Turku}, \country{Finland}}
+\address[2,7]{\orgdiv{Department of Life Technologies}, \orgname{University of Turku}, \postcode{20014} \state{Turku}, \country{Finland}}
+\address[3,5,6]{\orgdiv{Wellcome Genome Campus}, \orgname{EMBL-EBI}, \postcode{CB10 1SA} \state{Hinxton, Cambridgeshire}, \country{United Kingdom}}
+\address[4]{\orgdiv{Center for Evolutionary Hologenomics, GLOBE Institute, Faculty of Health and Medical Sciences}, \orgname{University of Copenhagen}, \postcode{1353} \state{Copenhagen}, \country{Denmark}}
+\corresp{\dag = Equal contribution.}
+
+% Abstract
+\DIFdelbegin %DIFDELCMD < \abstract{
+%DIFDELCMD < \textbf{Summary:} Holo-omics is an emerging research area that integrates multi-omic datasets from the host organism and its microbiome to study their interactions. Recently, curated and openly accessible holo-omic databases have been developed. The HoloFood database, for instance, provides nearly 10,000 holo-omic profiles for salmon and chicken under controlled treatments. However, bridging the gap between holo-omic data resources and algorithmic frameworks remains a challenge. Combining the latest advances in statistical programming with curated holo-omic data sets can facilitate the design of open and reproducible research workflows in the emerging field of holo-omics.
+%DIFDELCMD < \\ % New line
+%DIFDELCMD < \textbf{Availability and implementation:} HoloFoodR R/Bioconductor package and the source code are available under the open-source Artistic License 2.0 at the package homepage \url{https://github.com/EBI-Metagenomics/HoloFoodR}.
+%DIFDELCMD < \\ % New line
+%DIFDELCMD < \textbf{Contact:} microbiome@utu.fi
+%DIFDELCMD < \\ % New line
+%DIFDELCMD < \textbf{Supplementary information:} Supplementary data is available in the package vignette via the package homepage \url{https://ebi-metagenomics.github.io/HoloFoodR/articles/HoloFoodR.html}
+%DIFDELCMD < }
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \abstract{
+\textbf{Summary:} Holo-omics is an emerging research area that integrates multi-omic datasets from the host organism and its microbiome to study their interactions. Recently, curated and openly accessible holo-omic databases have been developed. The HoloFood database, for instance, provides nearly 10,000 holo-omic profiles for salmon and chicken under controlled treatments. However, bridging the gap between holo-omic data resources and algorithmic frameworks remains a challenge. Combining the latest advances in statistical programming with curated holo-omic data sets can facilitate the design of open and reproducible research workflows in the emerging field of holo-omics.
+\\ % New line
+\textbf{Availability and implementation:} HoloFoodR R/Bioconductor package and the source code are available under the open-source Artistic License 2.0 at the package homepage \url{https://bioconductor.org/packages/release/bioc/html/HoloFoodR.html}.
+\\ % New line
+\textbf{Contact:} tuomas.v.borman@utu.fi
+\\ % New line
+\textbf{Supplementary information:} Available in the package vignette \url{https://ebi-metagenomics.github.io/HoloFoodR/articles/case_study.html}
+}
+\DIFaddend %\textbf{Motivation:} Holo-omics is an emerging research area that integrates multi-omic data from the host organism and its microbiome to study their interactions. Recently, curated and openly accessible holo-omic databases have been developed. The HoloFood database, for instance, provides nearly 10,000 holo-omic profiles for salmon and chicken under controlled treatments. Despite the improvements in data availability, bridging the gap between holo-omic data resources and algorithmic frameworks remains a challenge. Method development in this area can facilitate the sharing of methods and best practices in the field of holo-omics.
+%\\ % New line
+%\textbf{Results:} We developed a data science framework to address this gap, supported by the new R/Bioconductor package, HoloFoodR. The package has been designed to streamline data input into a standardized format for downstream analysis within the Bioconductor ecosystem, which offers optimized solutions for individual omics as well as their integrative analysis. We demonstrate our methodology through a case study where we retrieve fatty acid data with associated metadata from the HoloFood database. It is  then integrated with with metagenomic data from the MGnify database, finally transforming the result into a dedicated multi-omic data {\it container}. This provides systematic means to jointly represent, manipulate, analyse rich combinations of omics and associated side information on the features and samples. We conclude by demonstrating the use of this data science strategy in exploratory analysis of host-microbiome interactions in a salmon model.
+%\\
+%\textbf{Availability and implementation:} HoloFoodR is freely available from \url{https://bioconductor.org/packages/release/bioc/html/HoloFoodR.html} under open-source Artistic License 2.0.}
+
+\keywords{holo-omics, multiomics, metagenomics, metabolomics, data integration, bioconductor}
+
+\maketitle
+
+\section{Introduction}
+
+The rapid advancement of omics technologies, including (meta)genomics and metabolomics, has been enhanced by breakthroughs in computational methods (\cite{moreno-indias_statistical_2021,marcos-zambrano_toolbox_2023,santamaria_bioinformatic_2024}).
+These developments have enabled holo-omics, rapidly emerging field, which uses an integrative approach to comprehensively collect and analyze omic data from both a host organism and its associated microbiome, collectively referred to as the {\it holobiont} (\cite{nyholmHoloOmicsIntegratedHostMicrobiota2020,limborgAppliedHologenomicsFeasibility2018,odriozola_practical_2024}). The holo-omic approach has improved our understanding of complex biological systems, for example, in aquaculture (\cite{limborgAppliedHologenomicsFeasibility2018,atlantic_salmon}).
+
+%This has enabled efficient simultaneous analyses of multiple types of omic data from a single sampleencompassing both host organisms and their diverse microbiomes (\cite{limborgAppliedHologenomicsFeasibility2018}).
+%The integration of these diverse information sources has enhanced our understanding of complex diseases, metabolic pathways, and the impact of environmental factors on humans, animals, and plants (\cite{zhangProteogenomicCharacterizationHuman2014}).
+%Progress in omics research focuses on discovering how different omics interact to impact phenotype.
+
+%A recent review considered a holo-omic framework for fish (\cite{limborgAppliedHologenomicsFeasibility2018}) to identify potential microorganisms of importance in the production of beneficial fatty acids (e.g. eicosapentaenoic and docosahexaenoic acids) in fish muscles. This review, together with empirical case studies (\cite{atlantic_salmon}), suggested that aquaculture could be further optimized by combining holo-omic, dietary and environmental data.
+
+Holo-omic research and the collaborative development of computational methods could benefit from curated, open access data resources.
+%With the increase of data volume, expenses and time required for data collection rise.
+The limited availability of comprehensive multi-omic data resources can impede research progress, constraining computational method development. Open data portals with an accessible Application Programming Interface (API) are crucial in overcoming these challenges. They facilitate research by providing access to data resources and supporting the collaborative development and benchmarking of new data science methods to extract insights from large, curated datasets (\cite{pasolli_2017}).
+
+Data can be limited in value unless it adheres to the FAIR principles (Findability, Accessibility, Interoperability, Reuse) (\cite{wilkinsonFAIRGuidingPrinciples2016}). API interfacing and data wrangling require specialized skills, leading to non-transferable, error-prone workflows, not easily reusable by the wider scientific community. Therefore, standardized open-source workflows are needed to search, retrieve and convert data into a suitable format for downstream analyses.
+To narrow the gap between upstream data retrieval and downstream analysis, we developed the HoloFoodR package, which facilitates seamless programmatic linking of the holo-omic data via the HoloFood data portal API and analysis methods from the R/Bioconductor  (\cite{gentleman_bioconductor_2004,callahan_bioconductor_2016}).
+%Towards this objective, we are leveraging the the R/Bioconductor methods ecosystem --- an open-source project for developing computational biology tools.
+
+\section{Materials and methods}
+
+The HoloFood data portal is an open access portal of curated holo-omic data and analyses, developed by the international HoloFood consortium (\cite{rogers_holofood_2025}) and hosted by the European Bioinformatics Institute (EMBL-EBI). It centralizes access to heterogeneous data resources including the European Nucleotide Archive for sequence data, MGnify for metagenomic data, and MetaboLights for metabolomic data, and tracks their interrelations via a web portal and free API, covering nearly 10,000 samples from over 2,000 individual chickens and salmon. Biomolecular and physiological measurements were collected at the level of each individual specimen in the project to explore the effects of novel sustainable feeds on physiological processes in farmed animals. In addition, the metadata of each sample is stored in the EMBL-EBI BioSamples service (\cite{courtot_2018}).
+
+We developed a conceptual framework to support best practices of statistical programming in holo-omic research, and implemented the work as the HoloFoodR R software library. The package relies on specialized data containers that have been designed to organize the multi-omic data in a structured format. Once the data has been imported to these formats, users can leverage state-of-the-art statistical programming methods for data processing and analysis.
+
+\vspace{-1em}
+\subsection{Integrative data containers}
+
+Data containers provide structured, standardized storage for data, proving useful in life science informatics where complex, hierarchical and multi-source data collections are common to describe the studied phenomenon (\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{drnevich_2024}}\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{drnevich_2025}}\hskip0pt%DIFAUXCMD
+}\DIFaddend ). Custom data containers simplify handling diverse omics data, supporting the design of modular and reproducible workflows.
+
+Two data structures are central to our approach, encompassing the needs to organize data for a single omics type, and subsequently link these across multiple omics.
+First, the TreeSummarizedExperiment (TreeSE) data container (\cite{huang_treesummarizedexperiment_2021}) standardizes single-omic data, such as metagenome or metabolome derived data sets. It stores experimental data, along with feature and sample metadata, in a structured format. Additionally, it supports the integration of hierarchical information on the features and samples, such as phylogenetic trees. The second container, MultiAssayExperiment (MAE) (\cite{ramos_software_2017}) acts as a logical complement by integrating multiple, heterogeneous omics datasets, seamlessly linking samples across single-omic datasets. Together, these data containers form the basis for an ecosystem of interoperable methods developed by the R/Bioconductor community.
+
+\vspace{-1em}
+\subsection{HoloFoodR workflow}
+
+The HoloFoodR package structures data in these single and multi-omic formats, enabling efficient data importing from holo-omic databases for streamlined analysis and integration. The HoloFoodR workflow is summarized in \figref{workflow}. The package uses \DIFdelbegin \DIFdel{four }\DIFdelend \DIFaddbegin \DIFadd{six }\DIFaddend functions to query and retrieve data from the HoloFood and MetaboLights databases (Table \ref{tab:holofoodr_functions}). A key feature is its ability to organize versatile data combinations into the MAE data container. Thus, it transforms complex data from the HoloFood API into a standardized structure for downstream statistical analyses in the Bioconductor data science environment  (\cite{ramos_software_2017}).
+
+Furthermore, HoloFoodR leverages the MetaboLights database to retrieve \DIFdelbegin \DIFdel{non-targeted }\DIFdelend metabolomic datasets indicated by project identifiers in the HoloFood data. The data can then be integrated with complementary metagenomic data resources that are available via the MGnify database using the MGnifyR package (\cite{mgnifyr}).
+
+\vspace{-1em}
+
+\begin{table}[H]
+\begin{center}
+\begin{minipage}{\linewidth}
+\caption{HoloFoodR functions that facilitate data search and retrieval}\label{tab:holofoodr_functions}
+    \begin{tabular}{l p{0.6\linewidth}}
+        \toprule
+        Function & Description \\ 
+        \midrule
+        \DIFaddbeginFL \DIFaddFL{addMGnify() }& \DIFaddFL{Integrate the results retrieved with getResult() with the metagenomic datasets fetched using the MGnifyR package. The result is in MultiAssayExperiment format. }\\
+        \DIFaddendFL doQuery() & \DIFdelbeginFL \DIFdelFL{Query HoloFood database }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Search the HoloFood database for animals, genome catalogues, samples, or viral catalogues. }\DIFaddendFL \\
+        getData() & Retrieve \DIFdelbeginFL \DIFdelFL{sample data in }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{diverse data types from HoloFood database. Returns a }\DIFaddendFL list or data.frame\DIFdelbeginFL \DIFdelFL{format }%DIFDELCMD < \\
+%DIFDELCMD <         %%%
+\DIFdelendFL \DIFaddbeginFL \DIFaddFL{, depending on the query. Offers more flexibility than }\DIFaddendFL getResult()\DIFaddbeginFL \DIFaddFL{, but returns unstandardized data structures. }\\
+        \DIFaddFL{getMetaboLights() }\DIFaddendFL & Retrieve \DIFdelbeginFL \DIFdelFL{sample data in MultiAssayExperiment format}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{processed metabolomic data from MetaboLights as list or TreeSE format. }\DIFaddendFL \\
+        \DIFdelbeginFL \DIFdelFL{getMetaboLights}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{getMetaboLightsFile}\DIFaddendFL () & \DIFaddbeginFL \DIFaddFL{Downloads raw metabolomic data files from MetaboLights. }\\
+        \DIFaddFL{getResult()  }& \DIFaddendFL Retrieve \DIFdelbeginFL \DIFdelFL{non-targeted metabolomic data from MetaboLights }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{sample-level data (e.g., metadata and measurements) from the HoloFood database in MultiAssayExperiment format. }\DIFaddendFL \\
+        \bottomrule
+    \end{tabular}
+\end{minipage}
+\end{center}
+\end{table}
+
+\vspace{-1em}
+
+\begin{figure*}[t]
+	\centering
+    % \vspace{20pt}%
+    \includegraphics[width=1\textwidth]{holofoodr_workflow_9.png}
+    \label{fig:workflow}
+    \caption{Data science workflow for holo-omic analysis. Programmatic access to open omic databases is facilitated by the dedicated software that feeds the data to R computational environment. The versatile R/Bioconductor is utilized to visualize microbial genera abundances and to analyze  time effect on omega-3 fatty acid concentrations in salmon muscles. The illustration and logo of the multi-assay data container have been taken from the MultiAssayExperiment vignette (Artistic License 2.0).}
+	\label{fig:workflow}
+\end{figure*}
+
+\vspace{-1em}
+\subsection{Bioconductor methods ecosystem}
+
+When data from the HoloFood database is retrieved via the HoloFoodR package, users gain direct access to single- and multi-omic downstream analysis methods available in Bioconductor. It currently offers 2,300 packages, developed by a diverse community of individual contributors for a wide range of fields (see e.g. \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2024}}\hskip0pt%DIFAUXCMD
+). Of particular relevance for studying host-microbiome interactions, Bioconductorincludes the specifically designed }\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2025}}\hskip0pt%DIFAUXCMD
+). Bioconductor's }\DIFaddend \texttt{mia} framework \DIFdelbegin \DIFdel{centering }\DIFdelend \DIFaddbegin \DIFadd{centers }\DIFaddend around these containers and supports a range of analysis and visualization methods \DIFdelbegin \DIFdel{in }\DIFdelend \DIFaddbegin \DIFadd{for }\DIFaddend microbiome research (\cite{mia, miaViz, oma}). Similarly, the metabolomic data can be pre-processed, analyzed and visualized with the \texttt{notame} package (\cite{klavus_2020}).
+
+\section{Results}
+
+\DIFdelbegin \DIFdel{In this section , we present }\DIFdelend \DIFaddbegin \DIFadd{This section presents }\DIFaddend a practical use case \DIFdelbegin \DIFdel{demonstrating the application of HoloFoodR within }\DIFdelend \DIFaddbegin \DIFadd{of applying HoloFoodR in }\DIFaddend a holo-omics workflow.
+The workflow includes the following steps:
+
+\begin{enumerate}
+    \item Fetch and integrate data from the HoloFood and MGnify databases.
+    \item Filter, clean, and transform data for analysis.
+    \item Explore and summarize the data.
+    \item Test associations between fatty acids, time, and treatment.
+    \item Test associations between microbiome composition, time, and treatment.
+    \item Characterize the joint variation between the parallel omics measurements.
+\end{enumerate}
+
+The full workflow\DIFaddbegin \DIFadd{, }\DIFaddend including figures and data refinement\DIFaddbegin \DIFadd{, }\DIFaddend is available in the package vignette at \DIFdelbegin %DIFDELCMD < \url{https://ebi-metagenomics.github.io/HoloFoodR/articles}%%%
+\DIFdelend \DIFaddbegin \url{https://ebi-metagenomics.github.io/HoloFoodR/articles/case_study.html}\DIFaddend .
+
+\vspace{-1em}
+\subsection{Data import and wrangling}
+
+The workflow begins by querying the HoloFood database \DIFdelbegin \DIFdel{to retrieve }\DIFdelend \DIFaddbegin \DIFadd{for }\DIFaddend available animals. We \DIFdelbegin \DIFdel{chose to gather all available salmon entries , collecting metadata on these animals to explore the available }\DIFdelend \DIFaddbegin \DIFadd{gathered all salmon entries and their metadata to explore }\DIFaddend data types and samples\DIFdelbegin \DIFdel{for each}\DIFdelend . These samples were \DIFdelbegin \DIFdel{then compiled into }\DIFdelend \DIFaddbegin \DIFadd{compiled into an }\DIFaddend MAE data container\DIFdelbegin \DIFdel{for further analysis}\DIFdelend . For metagenomic data\DIFdelbegin \DIFdel{retrieval}\DIFdelend , we leveraged the capabilities of the MGnifyR package to \DIFdelbegin \DIFdel{first identify the corresponding }\DIFdelend \DIFaddbegin \DIFadd{identify the }\DIFaddend sample IDs from the MGnify database and \DIFdelbegin \DIFdel{then }\DIFdelend fetch the metagenomic data as a MAE object. The consistent data format supports  seamless merging of \DIFdelbegin \DIFdel{the datasets from }\DIFdelend HoloFood and MGnify \DIFaddbegin \DIFadd{datasets}\DIFaddend . The resulting \DIFdelbegin \DIFdel{data container carries }\DIFdelend \DIFaddbegin \DIFadd{container holds }\DIFaddend various types of omics with associated metadata \DIFdelbegin \DIFdel{, and provides the basis }\DIFdelend for downstream analyses.
+
+\DIFdelbegin \DIFdel{By employing the capabilities of }\DIFdelend \DIFaddbegin \DIFadd{Using }\DIFaddend the MAE object \DIFdelbegin \DIFdel{, we efficiently wrangled the data to focus }\DIFdelend \DIFaddbegin \DIFadd{for data wrangling, we focused }\DIFaddend on salmon from Trial A in the HoloFood database \DIFdelbegin \DIFdel{, }\DIFdelend to study the \DIFdelbegin \DIFdel{impact }\DIFdelend \DIFaddbegin \DIFadd{effects }\DIFaddend of fermented seaweed as a feed additive. Samples were obtained from animals euthanized \DIFdelbegin \DIFdel{during the sampling process, with animals assigned to be sampled either at the beginning or at the }\DIFdelend \DIFaddbegin \DIFadd{at either the start or }\DIFaddend end of the trial. Fatty acid concentrations were \DIFdelbegin \DIFdel{analyzed from }\DIFdelend \DIFaddbegin \DIFadd{measured in }\DIFaddend muscle tissue, while \DIFdelbegin \DIFdel{metagenomics samples were drawn }\DIFdelend \DIFaddbegin \DIFadd{metagenomic samples were taken }\DIFaddend from the intestine.
+
+The \texttt{mia} framework (\cite{mia, miaViz}) provides \DIFdelbegin \DIFdel{a user-friendly }\DIFdelend \DIFaddbegin \DIFadd{an intuitive }\DIFaddend R interface designed for the downstream analysis, \DIFdelbegin \DIFdel{with a particular emphasis on }\DIFdelend \DIFaddbegin \DIFadd{especially for }\DIFaddend microbiome data. We filtered and agglomerated the data to \DIFdelbegin \DIFdel{concentrate on a specific group of }\DIFdelend \DIFaddbegin \DIFadd{focus on specific }\DIFaddend microbes and fatty acids\DIFdelbegin \DIFdel{. Additionally, various data transformations were applied to prepare the dataset for further analysis. Briefly, we have transformed metagenomic data with centered log ratio method, and }\DIFdelend \DIFaddbegin \DIFadd{, applying centered log-ratio transofrmation to metagenomic data and logarithmic transformation to }\DIFaddend fatty acid data\DIFdelbegin \DIFdel{with logarithmic transformation}\DIFdelend . The full details are provided in the \DIFaddbegin \DIFadd{HoloFoodR }\DIFaddend package vignette.
+
+\vspace{-1em}
+\subsection{Downstream analysis}
+
+After data retrieval and basic exploration, we \DIFdelbegin \DIFdel{focused on }\DIFdelend \DIFaddbegin \DIFadd{examined }\DIFaddend the effects of \DIFdelbegin \DIFdel{the }\DIFdelend seaweed treatment and aging. \DIFdelbegin \DIFdel{We did not observe any impact of treatment on the }\DIFdelend \DIFaddbegin \DIFadd{No treatment impact on }\DIFaddend fatty acid composition \DIFdelbegin \DIFdel{, which aligns with the findings of }\DIFdelend \DIFaddbegin \DIFadd{was observed, consistent with }\DIFaddend a recent HoloFood study (\cite{rasmussen_holo-omics_2025}). However, we \DIFdelbegin \DIFdel{did note temporal effects. As }\DIFdelend \DIFaddbegin \DIFadd{found temporal effects: as }\DIFaddend the salmon grew, \DIFdelbegin \DIFdel{the concentration increased for certain fatty acids , such as }\DIFdelend \DIFaddbegin \DIFadd{concentrations of several fatty acids (}\DIFaddend docosahexaenoic, eicosapentaenoic, linoleic, oleic, palmitic, and stearic\DIFaddbegin \DIFadd{) increased }\DIFaddend (see \figref{workflow}, data analysis panel, which highlights the first two fatty acids).
+
+Microbial community analysis indicated a dominance of {\it Mycoplasma}, consistent with previous studies ({\cite{zarkasiPyrosequencingbasedCharacterizationGastrointestinal2014,bozzi_salmon_2021}}, see \figref{workflow}, data analysis panel). We also observed an increase in microbial diversity (Shannon index) with time, confirmed by Principal Coordinate Analysis (Bray-Curtis dissimilarity).
+
+To explore the co-abundance of fatty acids and microbial genera, we performed multi-omic factor analysis (\cite{argelaguet_mofa_2020}), revealing that {\it Cetobacterium}, {\it Vibrio}, {\it Aliivibrio}, and {\it Photobacterium} covaried with overall fatty acid levels, while {\it Mycoplasma} showed no such correlation.
+
+\section{Discussion and conclusions}
+% Context / background / reflection on objectives
+
+\DIFdelbegin \DIFdel{The integration of }\DIFdelend \DIFaddbegin \DIFadd{Integrating }\DIFaddend multiple omics layers \DIFdelbegin \DIFdel{can offer }\DIFdelend \DIFaddbegin \DIFadd{provides }\DIFaddend holistic insights into complex \DIFdelbegin \DIFdel{living }\DIFdelend systems. Holo-omics is the new field that emphasizes the interactions between the hosts and their microbiomes. However, such analyses rely on \DIFdelbegin \DIFdel{access to curated datacollections}\DIFdelend \DIFaddbegin \DIFadd{curated data}\DIFaddend , computational environments\DIFaddbegin \DIFadd{, }\DIFaddend and algorithmic tools. \DIFdelbegin \DIFdel{The evolving field of holo-omics can benefit greatly from the collaborative methods }\DIFdelend \DIFaddbegin \DIFadd{Collaborative }\DIFaddend development and sharing \DIFdelbegin \DIFdel{, thus avoiding the duplication of work }\DIFdelend \DIFaddbegin \DIFadd{in holo-omics can advance the field and prevent redundant efforts. }\DIFaddend (\cite{open_microbiome, lahti_open_2018}).
+
+To fill the gap between holo-omic data and downstream analysis methods, we developed the HoloFoodR package. \DIFdelbegin \DIFdel{It provides }\DIFdelend \DIFaddbegin \DIFadd{Our work offers }\DIFaddend programmatic access to the HoloFood data portal and \DIFdelbegin \DIFdel{links it }\DIFdelend \DIFaddbegin \DIFadd{integrates }\DIFaddend with complementary data sources \DIFdelbegin \DIFdel{analysis methods from the extensive Bioconductor ecosystem. Our work demonstrates a comprehensive }\DIFdelend \DIFaddbegin \DIFadd{and Bioconductor analysis tools, supporting }\DIFaddend open data science \DIFdelbegin \DIFdel{strategy for }\DIFdelend \DIFaddbegin \DIFadd{in }\DIFaddend holo-omics\DIFdelbegin \DIFdel{research}\DIFdelend .
+
+\DIFdelbegin \DIFdel{The HoloFoodR software library }\DIFdelend \DIFaddbegin \DIFadd{HoloFoodR }\DIFaddend simplifies data retrieval by minimizing external data wrangling \DIFaddbegin \DIFadd{and }\DIFaddend adhering to standardized data structures that support efficient use of the multi-omic analyses methods. This standardization replaces lengthy \textit{ad-hoc} code with concise \DIFdelbegin \DIFdel{, }\DIFdelend and tested open-source solutions. We \DIFdelbegin \DIFdel{illustrate the }\DIFdelend \DIFaddbegin \DIFadd{demonstrate this }\DIFaddend approach with an end-to-end workflow\DIFdelbegin \DIFdel{that covers typical steps of a holo-omic data analysis and emphasizes }\DIFdelend \DIFaddbegin \DIFadd{, highlighting }\DIFaddend the use of multi-assay data containers to enhance access to \DIFdelbegin \DIFdel{methods in the Bioconductor ecosystem}\DIFdelend \DIFaddbegin \DIFadd{Bioconductor methods}\DIFaddend .
+
+% Use in teaching
+\DIFdelbegin \DIFdel{In addition to }\DIFdelend \DIFaddbegin \DIFadd{Beyond }\DIFaddend method development and analysis, \DIFdelbegin \DIFdel{we see potential in using HoloFood data }\DIFdelend \DIFaddbegin \DIFadd{HoloFood data can aid }\DIFaddend in teaching multi-omics techniques. HoloFoodR offers simplified access to real-world omic data, enabling more proficient users \DIFaddbegin \DIFadd{to }\DIFaddend "learn by doing”. The \DIFdelbegin \DIFdel{advantage of such data over }\DIFdelend \DIFaddbegin \DIFadd{complexity of this data makes it superior to }\DIFaddend “toy” \DIFdelbegin \DIFdel{data lies in its increased complexity, which provides an excellent foundation for instructors to teach students }\DIFdelend \DIFaddbegin \DIFadd{datasets for teaching }\DIFaddend advanced data cleaning and analysis \DIFdelbegin \DIFdel{techniques (\mbox{%DIFAUXCMD
+\cite{drnevich_2024}}\hskip0pt%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{skills. (\mbox{%DIFAUXCMD
+\cite{drnevich_2025}}\hskip0pt%DIFAUXCMD
+}\DIFaddend ).
+
+The HoloFood data portal currently provides the interconnectivity between the samples and omics datasets, based on BioSamples identifiers. This linkage provides a template for future multiomics datasets, and as the number of datasets increases, the HoloFoodR package could be generalised so that the concepts can be readily applied to other datasets.
+
+% Limitations, implementation issues
+Despite the benefits, there are also limitations. First, raw spectral metabolite data from the MetaboLights database requires extensive preprocessing, often with external tools (\cite{klavus_2020}). Whereas the proposed custom data structures can readily support downstream analyses, their construction and use require sufficient R programming skills.
+
+% Concluding sentences
+Thus, the methods and open data science strategy that we have suggested can serve as a template for conducting multi-omic analyses. The HoloFoodR package can be adapted for other data resources relevant to holo-omic research, where the growing Bioconductor ecosystem offers an expanding compilation of data analytical tools. 
+
+\section{Acknowledgements}
+
+We are grateful to HoloFood consortium (\url{https://www.holofood.eu}) for providing the curated database and API.
+
+% \section{Supplementary data}
+
+\section{Competing interests}
+No competing interest is declared.
+
+\section{Funding}
+This work was supported by the European Commission in the framework of the Horizon2020 Project FindingPheno [GA  952914] and HoloFood [GA 817729] . A.S. and K.H. were  supported by Jane and Aatos Erkko Foundation and the Research Council of Finland [grant numbers 321716, 334814]. M.T.L. was supported by the Danish National Research Foundation [grant DNRF143].  L.L. was supported by Research Council of Finland [grant number 330887].
+
+\printbibliography
+
+\end{document}

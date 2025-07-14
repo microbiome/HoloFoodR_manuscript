@@ -129,11 +129,11 @@
 \abstract{
 \textbf{Summary:} Holo-omics is an emerging research area that integrates multi-omic datasets from the host organism and its microbiome to study their interactions. Recently, curated and openly accessible holo-omic databases have been developed. The HoloFood database, for instance, provides nearly 10,000 holo-omic profiles for salmon and chicken under controlled treatments. However, bridging the gap between holo-omic data resources and algorithmic frameworks remains a challenge. Combining the latest advances in statistical programming with curated holo-omic data sets can facilitate the design of open and reproducible research workflows in the emerging field of holo-omics.
 \\ % New line
-\textbf{Availability and implementation:} HoloFoodR R/Bioconductor package and the source code are available under the open-source Artistic License 2.0 at the package homepage \url{https://github.com/EBI-Metagenomics/HoloFoodR}.
+\textbf{Availability and implementation:} HoloFoodR R/Bioconductor package and the source code are available under the open-source Artistic License 2.0 at the package homepage \url{https://bioconductor.org/packages/release/bioc/html/HoloFoodR.html}.
 \\ % New line
-\textbf{Contact:} microbiome@utu.fi
+\textbf{Contact:} tuomas.v.borman@utu.fi
 \\ % New line
-\textbf{Supplementary information:} Supplementary data is available in the package vignette via the package homepage \url{https://ebi-metagenomics.github.io/HoloFoodR/articles/HoloFoodR.html}
+\textbf{Supplementary information:} Supplementary information is available in the package vignette \url{https://ebi-metagenomics.github.io/HoloFoodR/articles/case_study.html}
 }
 %\textbf{Motivation:} Holo-omics is an emerging research area that integrates multi-omic data from the host organism and its microbiome to study their interactions. Recently, curated and openly accessible holo-omic databases have been developed. The HoloFood database, for instance, provides nearly 10,000 holo-omic profiles for salmon and chicken under controlled treatments. Despite the improvements in data availability, bridging the gap between holo-omic data resources and algorithmic frameworks remains a challenge. Method development in this area can facilitate the sharing of methods and best practices in the field of holo-omics.
 %\\ % New line
@@ -173,7 +173,7 @@ We developed a conceptual framework to support best practices of statistical pro
 \vspace{-1em}
 \subsection{Integrative data containers}
 
-Data containers provide structured, standardized storage for data, proving useful in life science informatics where complex, hierarchical and multi-source data collections are common to describe the studied phenomenon (\cite{drnevich_2024}). Custom data containers simplify handling diverse omics data, supporting the design of modular and reproducible workflows.
+Data containers provide structured, standardized storage for data, proving useful in life science informatics where complex, hierarchical and multi-source data collections are common to describe the studied phenomenon (\cite{drnevich_2025}). Custom data containers simplify handling diverse omics data, supporting the design of modular and reproducible workflows.
 
 Two data structures are central to our approach, encompassing the needs to organize data for a single omics type, and subsequently link these across multiple omics.
 First, the TreeSummarizedExperiment (TreeSE) data container (\cite{huang_treesummarizedexperiment_2021}) standardizes single-omic data, such as metagenome or metabolome derived data sets. It stores experimental data, along with feature and sample metadata, in a structured format. Additionally, it supports the integration of hierarchical information on the features and samples, such as phylogenetic trees. The second container, MultiAssayExperiment (MAE) (\cite{ramos_software_2017}) acts as a logical complement by integrating multiple, heterogeneous omics datasets, seamlessly linking samples across single-omic datasets. Together, these data containers form the basis for an ecosystem of interoperable methods developed by the R/Bioconductor community.
@@ -181,9 +181,9 @@ First, the TreeSummarizedExperiment (TreeSE) data container (\cite{huang_treesum
 \vspace{-1em}
 \subsection{HoloFoodR workflow}
 
-The HoloFoodR package structures data in these single and multi-omic formats, enabling efficient data importing from holo-omic databases for streamlined analysis and integration. The HoloFoodR workflow is summarized in \figref{workflow}. The package uses four functions to query and retrieve data from the HoloFood and MetaboLights databases (Table \ref{tab:holofoodr_functions}). A key feature is its ability to organize versatile data combinations into the MAE data container. Thus, it transforms complex data from the HoloFood API into a standardized structure for downstream statistical analyses in the Bioconductor data science environment  (\cite{ramos_software_2017}).
+The HoloFoodR package structures data in these single and multi-omic formats, enabling efficient data importing from holo-omic databases for streamlined analysis and integration. The HoloFoodR workflow is summarized in \figref{workflow}. The package uses six functions to query and retrieve data from the HoloFood and MetaboLights databases (Table \ref{tab:holofoodr_functions}). A key feature is its ability to organize versatile data combinations into the MAE data container. Thus, it transforms complex data from the HoloFood API into a standardized structure for downstream statistical analyses in the Bioconductor data science environment  (\cite{ramos_software_2017}).
 
-Furthermore, HoloFoodR leverages the MetaboLights database to retrieve non-targeted metabolomic datasets indicated by project identifiers in the HoloFood data. The data can then be integrated with complementary metagenomic data resources that are available via the MGnify database using the MGnifyR package (\cite{mgnifyr}).
+Furthermore, HoloFoodR leverages the MetaboLights database to retrieve metabolomic datasets indicated by project identifiers in the HoloFood data. The data can then be integrated with complementary metagenomic data resources that are available via the MGnify database using the MGnifyR package (\cite{mgnifyr}).
 
 \vspace{-1em}
 
@@ -195,10 +195,12 @@ Furthermore, HoloFoodR leverages the MetaboLights database to retrieve non-targe
         \toprule
         Function & Description \\ 
         \midrule
-        doQuery() & Query HoloFood database \\
-        getData() & Retrieve sample data in list or data.frame format \\
-        getResult()  & Retrieve sample data in MultiAssayExperiment format \\
-        getMetaboLights() & Retrieve non-targeted metabolomic data from MetaboLights \\
+        addMGnify() & Integrate the results retrieved with getResult() with the metagenomic datasets fetched using the MGnifyR package. The result is in MultiAssayExperiment format. \\
+        doQuery() & Search the HoloFood database for animals, genome catalogues, samples, or viral catalogues. \\
+        getData() & Retrieve diverse data types from HoloFood database. Returns a list or data.frame, depending on the query. Offers more flexibility than getResult(), but returns unstandardized data structures. \\
+        getMetaboLights() & Retrieve processed metabolomic data from MetaboLights as list or TreeSE format. \\
+        getMetaboLightsFile() & Downloads raw metabolomic data files from MetaboLights. \\
+        getResult()  & Retrieve sample-level data (e.g., metadata and measurements) from the HoloFood database in MultiAssayExperiment format. \\
         \bottomrule
     \end{tabular}
 \end{minipage}
@@ -219,11 +221,12 @@ Furthermore, HoloFoodR leverages the MetaboLights database to retrieve non-targe
 \vspace{-1em}
 \subsection{Bioconductor methods ecosystem}
 
-When data from the HoloFood database is retrieved via the HoloFoodR package, users gain direct access to single- and multi-omic downstream analysis methods available in Bioconductor. It currently offers 2,300 packages, developed by a diverse community of individual contributors for a wide range of fields (see e.g. \cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2024}). Of particular relevance for studying host-microbiome interactions, Bioconductor includes the specifically designed \texttt{mia} framework centering around these containers and supports a range of analysis and visualization methods in microbiome research (\cite{mia, miaViz, oma}). Similarly, the metabolomic data can be pre-processed, analyzed and visualized with the \texttt{notame} package (\cite{klavus_2020}).
+When data from the HoloFood database is retrieved via the HoloFoodR package, users gain direct access to single- and multi-omic downstream analysis methods available in Bioconductor. It currently offers 2,300 packages, developed by a diverse community of individual contributors for a wide range of fields (see e.g. \cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2025}). Bioconductor's \texttt{mia} framework centers around these containers and supports a range of analysis and visualization methods for microbiome research (\cite{mia, miaViz, oma}). Similarly, the metabolomic data can be pre-processed, analyzed and visualized with the \texttt{notame} package (\cite{klavus_2020}).
 
 \section{Results}
 
-In this section, we present a practical use case demonstrating the application of HoloFoodR within a holo-omics workflow. The workflow includes the following steps:
+This section presents a practical use case of applying HoloFoodR in a holo-omics workflow.
+The workflow includes the following steps:
 
 \begin{enumerate}
     \item Fetch and integrate data from the HoloFood and MGnify databases.
@@ -234,21 +237,21 @@ In this section, we present a practical use case demonstrating the application o
     \item Characterize the joint variation between the parallel omics measurements.
 \end{enumerate}
 
-The full workflow including figures and data refinement is available in the package vignette at \url{https://ebi-metagenomics.github.io/HoloFoodR/articles}.
+The full workflow, including figures and data refinement, is available in the package vignette at \url{https://ebi-metagenomics.github.io/HoloFoodR/articles/case_study.html}.
 
 \vspace{-1em}
 \subsection{Data import and wrangling}
 
-The workflow begins by querying the HoloFood database to retrieve available animals. We chose to gather all available salmon entries, collecting metadata on these animals to explore the available data types and samples for each. These samples were then compiled into MAE data container for further analysis. For metagenomic data retrieval, we leveraged the capabilities of the MGnifyR package to first identify the corresponding sample IDs from the MGnify database and then fetch the metagenomic data as a MAE object. The consistent data format supports  seamless merging of the datasets from HoloFood and MGnify. The resulting data container carries various types of omics with associated metadata, and provides the basis for downstream analyses.
+The workflow begins by querying the HoloFood database for available animals. We gathered all salmon entries and their metadata to explore data types and samples. These samples were compiled into an MAE data container. For metagenomic data, we leveraged the capabilities of the MGnifyR package to identify the sample IDs from the MGnify database and fetch the metagenomic data as a MAE object. The consistent data format supports  seamless merging of HoloFood and MGnify datasets. The resulting container holds various types of omics with associated metadata for downstream analyses.
 
-By employing the capabilities of the MAE object, we efficiently wrangled the data to focus on salmon from Trial A in the HoloFood database, to study the impact of fermented seaweed as a feed additive. Samples were obtained from animals euthanized during the sampling process, with animals assigned to be sampled either at the beginning or at the end of the trial. Fatty acid concentrations were analyzed from muscle tissue, while metagenomics samples were drawn from the intestine.
+Using the MAE object for data wrangling, we focused on salmon from Trial A in the HoloFood database to study the effects of fermented seaweed as a feed additive. Samples were obtained from animals euthanized at either the start or end of the trial. Fatty acid concentrations were measured in muscle tissue, while metagenomic samples were taken from the intestine.
 
-The \texttt{mia} framework (\cite{mia, miaViz}) provides a user-friendly R interface designed for the downstream analysis, with a particular emphasis on microbiome data. We filtered and agglomerated the data to concentrate on a specific group of microbes and fatty acids. Additionally, various data transformations were applied to prepare the dataset for further analysis. Briefly, we have transformed metagenomic data with centered log ratio method, and fatty acid data with logarithmic transformation. The full details are provided in the package vignette.
+The \texttt{mia} framework (\cite{mia, miaViz}) provides an intuitive R interface designed for the downstream analysis, especially for microbiome data. We filtered and agglomerated the data to focus on specific microbes and fatty acids, applying centered log-ratio transofrmation to metagenomic data and logarithmic transformation to fatty acid data. The full details are provided in the HoloFoodR package vignette.
 
 \vspace{-1em}
 \subsection{Downstream analysis}
 
-After data retrieval and basic exploration, we focused on the effects of the seaweed treatment and aging. We did not observe any impact of treatment on the fatty acid composition, which aligns with the findings of a recent HoloFood study (\cite{rasmussen_holo-omics_2025}). However, we did note temporal effects. As the salmon grew, the concentration increased for certain fatty acids, such as docosahexaenoic, eicosapentaenoic, linoleic, oleic, palmitic, and stearic  (see \figref{workflow}, data analysis panel, which highlights the first two fatty acids).
+After data retrieval and basic exploration, we examined the effects of seaweed treatment and aging. No treatment impact on fatty acid composition was observed, consistent with a recent HoloFood study (\cite{rasmussen_holo-omics_2025}). However, we found temporal effects: as the salmon grew, concentrations of several fatty acids (docosahexaenoic, eicosapentaenoic, linoleic, oleic, palmitic, and stearic) increased (see \figref{workflow}, data analysis panel, which highlights the first two fatty acids).
 
 Microbial community analysis indicated a dominance of {\it Mycoplasma}, consistent with previous studies ({\cite{zarkasiPyrosequencingbasedCharacterizationGastrointestinal2014,bozzi_salmon_2021}}, see \figref{workflow}, data analysis panel). We also observed an increase in microbial diversity (Shannon index) with time, confirmed by Principal Coordinate Analysis (Bray-Curtis dissimilarity).
 
@@ -257,14 +260,14 @@ To explore the co-abundance of fatty acids and microbial genera, we performed mu
 \section{Discussion and conclusions}
 % Context / background / reflection on objectives
 
-The integration of multiple omics layers can offer holistic insights into complex living systems. Holo-omics is the new field that emphasizes the interactions between the hosts and their microbiomes. However, such analyses rely on access to curated data collections, computational environments and algorithmic tools. The evolving field of holo-omics can benefit greatly from the collaborative methods development and sharing, thus avoiding the duplication of work (\cite{open_microbiome, lahti_open_2018}).
+Integrating multiple omics layers provides holistic insights into complex systems. Holo-omics is the new field that emphasizes the interactions between the hosts and their microbiomes. However, such analyses rely on curated data, computational environments, and algorithmic tools. Collaborative development and sharing in holo-omics can advance the field and prevent redundant efforts. (\cite{open_microbiome, lahti_open_2018}).
 
-To fill the gap between holo-omic data and downstream analysis methods, we developed the HoloFoodR package. It provides programmatic access to the HoloFood data portal and links it with complementary data sources analysis methods from the extensive Bioconductor ecosystem. Our work demonstrates a comprehensive open data science strategy for holo-omics research.
+To fill the gap between holo-omic data and downstream analysis methods, we developed the HoloFoodR package. Our work offers programmatic access to the HoloFood data portal and integrates with complementary data sources and Bioconductor analysis tools, supporting open data science in holo-omics.
 
-The HoloFoodR software library simplifies data retrieval by minimizing external data wrangling adhering to standardized data structures that support efficient use of the multi-omic analyses methods. This standardization replaces lengthy \textit{ad-hoc} code with concise, and tested open-source solutions. We illustrate the approach with an end-to-end workflow that covers typical steps of a holo-omic data analysis and emphasizes the use of multi-assay data containers to enhance access to methods in the Bioconductor ecosystem.
+HoloFoodR simplifies data retrieval by minimizing external data wrangling and adhering to standardized data structures that support efficient use of the multi-omic analyses methods. This standardization replaces lengthy \textit{ad-hoc} code with concise and tested open-source solutions. We demonstrate this approach with an end-to-end workflow, highlighting the use of multi-assay data containers to enhance access to Bioconductor methods.
 
 % Use in teaching
-In addition to method development and analysis, we see potential in using HoloFood data in teaching multi-omics techniques. HoloFoodR offers simplified access to real-world omic data, enabling more proficient users "learn by doing”. The advantage of such data over “toy” data lies in its increased complexity, which provides an excellent foundation for instructors to teach students advanced data cleaning and analysis techniques (\cite{drnevich_2024}).
+Beyond method development and analysis, HoloFood data can aid in teaching multi-omics techniques. HoloFoodR offers simplified access to real-world omic data, enabling more proficient users to "learn by doing”. The complexity of this data makes it superior to “toy” datasets for teaching advanced data cleaning and analysis skills. (\cite{drnevich_2025}).
 
 The HoloFood data portal currently provides the interconnectivity between the samples and omics datasets, based on BioSamples identifiers. This linkage provides a template for future multiomics datasets, and as the number of datasets increases, the HoloFoodR package could be generalised so that the concepts can be readily applied to other datasets.
 
