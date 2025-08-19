@@ -53,7 +53,7 @@
 %%% Bibliography %%%
 \usepackage[style=authoryear,backend=biber,maxnames=1,uniquelist=false]{biblatex}
 \addbibresource{references.bib}
-                           
+
 %% Bibiography style for articles %%%
 \DeclareFieldFormat[article]{title}{#1} % Remove quotes from article titles
 \DeclareFieldFormat[article]{volume}{\mkbibbold{#1}} % Make volume bold
@@ -172,7 +172,7 @@ Furthermore, HoloFoodR leverages the MetaboLights database to retrieve metabolom
 \caption{HoloFoodR functions that facilitate data search and retrieval}\label{tab:holofoodr_functions}
     \begin{tabular}{l p{0.6\linewidth}}
         \toprule
-        Function & Description \\ 
+        Function & Description \\
         \midrule
         addMGnify() & Integrate the results retrieved with getResult() with the metagenomic datasets fetched using the MGnifyR package. The result is in MultiAssayExperiment format. \\
         doQuery() & Search the HoloFood database for animals, genome catalogues, samples, or viral catalogues. \\
@@ -200,7 +200,7 @@ Furthermore, HoloFoodR leverages the MetaboLights database to retrieve metabolom
 \vspace{-1em}
 \subsection{Bioconductor methods ecosystem}
 
-When data from the HoloFood database is retrieved via the HoloFoodR package, users gain direct access to single- and multi-omic downstream analysis methods available in Bioconductor. It currently offers 2,300 R packages, developed by a diverse community of individual contributors for a wide range of fields (see e.g. \cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2025}). Bioconductor's \texttt{mia} framework centers around these containers and supports a range of analysis and visualisation methods for microbiome research (\cite{mia, miaViz, oma}). Similarly, the metabolomic data can be pre-processed, analysed and visualised using the \texttt{notame} package (\cite{klavus_2020}).
+When data from the HoloFood database is retrieved via the HoloFoodR package, users gain direct access to single- and multi-omic downstream analysis methods available in Bioconductor. It currently offers 2,300 R packages, developed by a diverse community of individual contributors for a wide range of fields (see e.g. \cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2025}). Bioconductor's \texttt{mia} framework centres around these containers and supports a range of analysis and visualisation methods for microbiome research (\cite{mia, miaViz, oma}). Similarly, the metabolomic data can be pre-processed, analysed and visualised using the \texttt{notame} package (\cite{klavus_2020}).
 
 \section{Results}
 
@@ -254,7 +254,7 @@ The HoloFood data portal currently provides the interconnectivity between the sa
 Despite the benefits, there are also limitations. First, raw spectral metabolite data from the MetaboLights database requires extensive preprocessing, often with external tools (\cite{klavus_2020}). Whereas the proposed custom data structures can readily support downstream analyses, their construction and use require sufficient R programming skills.
 
 % Concluding sentences
-Thus, the methods and open data science strategy that we have proposed can serve as a template for conducting multi-omic analyses. The HoloFoodR package can be adapted for other data resources relevant to holo-omic research, where the growing Bioconductor ecosystem offers an expanding set of data analysis tools. 
+Thus, the methods and open data science strategy that we have proposed can serve as a template for conducting multi-omic analyses. The HoloFoodR package can be adapted for other data resources relevant to holo-omic research, where the growing Bioconductor ecosystem offers an expanding set of data analysis tools.
 
 \section{Acknowledgements}
 
