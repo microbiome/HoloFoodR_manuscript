@@ -200,7 +200,7 @@ Furthermore, HoloFoodR leverages the MetaboLights database to retrieve metabolom
 \vspace{-1em}
 \subsection{Bioconductor methods ecosystem}
 
-When data from the HoloFood database is retrieved via the HoloFoodR package, users gain direct access to single- and multi-omic downstream analysis methods available in Bioconductor. It currently offers 2,300 R packages, developed by a diverse community of individual contributors for a wide range of fields (see e.g. \cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2025}). Bioconductor's \texttt{mia} framework centres around these containers and supports a range of analysis and visualisation methods for microbiome research (\cite{mia, miaViz, oma}). Similarly, the metabolomic data can be pre-processed, analysed and visualised using the \texttt{notame} package (\cite{klavus_2020}).
+When data from the HoloFood database is retrieved via the HoloFoodR package, users gain direct access to single- and multi-omic downstream analysis methods available in Bioconductor. It currently offers 2,300 R packages, developed by a diverse community of individual contributors for a wide range of fields (see e.g. \cite{gentleman_bioconductor_2004,callahan_bioconductor_2016,amezquita_orchestrating_2020,drnevich_2025}). Bioconductor's \texttt{mia} framework centres around these containers and supports a range of analysis and visualisation methods for microbiome research (\cite{oma}). Similarly, the metabolomic data can be pre-processed, analysed and visualised using the \texttt{notame} package (\cite{klavus_2020}).
 
 \section{Results}
 
@@ -225,7 +225,7 @@ The workflow begins by querying the HoloFood database for available animals. We 
 
 Using the MAE object for data wrangling, we focused on salmon from Trial A in the HoloFood database to study the effects of fermented seaweed as a feed additive. Samples were obtained from animals euthanised at either the start or end of the trial. Fatty acid concentrations were measured in muscle tissue, while metagenomic samples were taken from the intestine.
 
-The \texttt{mia} framework (\cite{mia, miaViz}) provides an intuitive R interface designed for the downstream analysis, especially for microbiome data. We filtered and agglomerated the data to focus on specific microbes and fatty acids, applying centred log-ratio transformation to metagenomic data and logarithmic transformation to fatty acid data. The full details are provided in the HoloFoodR package vignette.
+The \texttt{mia} framework (\cite{oma}) provides an intuitive R interface designed for the downstream analysis, especially for microbiome data. We filtered and agglomerated the data to focus on specific microbes and fatty acids, applying centred log-ratio transformation to metagenomic data and logarithmic transformation to fatty acid data. The full details are provided in the HoloFoodR package vignette.
 
 \vspace{-1em}
 \subsection{Downstream analysis}
